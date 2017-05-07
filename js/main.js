@@ -18,12 +18,15 @@ const calculator = {
 document.querySelector('.wrapper-btns').addEventListener('click', (e) => {
   let btnNum = e.target.value
   let btnOperation = e.target.id
-  if (!btnOperation) {
-    calculator.num += btnNum
-    updateScreen(calculator.num)
-  } else {
-    calculator.saveNum()
-    checkOperation(btnOperation)
+  if (btnNum !== undefined) {
+    console.log(btnNum)
+    if (!btnOperation) {
+      calculator.num += btnNum
+      updateScreen(calculator.num)
+    } else {
+      calculator.saveNum()
+      checkOperation(btnOperation)
+    }
   }
 })
 

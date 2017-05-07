@@ -26,13 +26,16 @@ button {
   flex-direction: column;
 }
 
+.column button {
+  height: 50px;
+}
+
 .expand {
   height: 100%;
 }
 .screen {
   background: rgba(255, 255, 255, 0.5);
   border: solid 1px lightgrey;
-  height: 100px;
   flex: 3;
 }
 .wrapper-btns {
