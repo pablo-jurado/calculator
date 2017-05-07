@@ -38,6 +38,12 @@ button {
   border: solid 1px lightgrey;
   flex: 3;
 }
+
+.top, .bottom {
+  height: 25px;
+  border: solid 1px black;
+}
+
 .wrapper-btns {
   display: flex;
   flex-flow: column;

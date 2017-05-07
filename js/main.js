@@ -4,25 +4,24 @@ const calculator = {
   operation: '',
   saveNum () {
     this.numbers.push(parseFloat(this.num, 10))
-    console.log(this.num)
     this.num = ''
   },
   clear () {
     this.num = ''
     this.operation = ''
     this.numbers = []
-    updateScreen(0)
+    // updateScreen(0)
   }
 }
 
+// check if click number or operation
 document.querySelector('.wrapper-btns').addEventListener('click', (e) => {
   let btnNum = e.target.value
   let btnOperation = e.target.id
   if (btnNum !== undefined) {
-    console.log(btnNum)
-    if (!btnOperation) {
+    if (btnNum) {
       calculator.num += btnNum
-      updateScreen(calculator.num)
+      screenBottom.innerHTML = calculator.num
     } else {
       calculator.saveNum()
       checkOperation(btnOperation)
@@ -34,13 +33,16 @@ function checkOperation (operation) {
   if (operation === 'clear') {
     calculator.clear()
   } else if (operation === 'equals') {
+    updateTopScreen()
     let result = equals()
+    screenTop.innerHTML += calculator.numbers[1]
     calculator.clear()
-    updateScreen(result)
+    updateResult(result)
     calculator.num = result
   } else {
+    updateTopScreen()
     calculator.operation = operation
-    updateScreen(calculator.operation)
+    screenTop.innerHTML += calculator.operation
   }
 }
 
@@ -53,9 +55,14 @@ function equals () {
   return result
 }
 
-function updateScreen (num) {
-  screen.innerHTML = num
+function updateTopScreen () {
+  screenTop.innerHTML = calculator.numbers[0] + calculator.operation
+  screenBottom.innerHTML = ''
 }
 
-const screen = document.querySelector('.screen')
-updateScreen(0)
+function updateResult (input) {
+  screenBottom.innerHTML = input
+}
+
+const screenTop = document.querySelector('.screen .top')
+const screenBottom = document.querySelector('.screen .bottom')
