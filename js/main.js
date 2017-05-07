@@ -10,7 +10,6 @@ const calculator = {
     this.num = ''
     this.operation = ''
     this.numbers = []
-    // updateScreen(0)
   }
 }
 
@@ -32,9 +31,10 @@ document.querySelector('.wrapper-btns').addEventListener('click', (e) => {
 function checkOperation (operation) {
   if (operation === 'clear') {
     calculator.clear()
+    clearScreen()
   } else if (operation === 'equals') {
     updateTopScreen()
-    let result = equals()
+    let result = getResult()
     screenTop.innerHTML += calculator.numbers[1]
     calculator.clear()
     updateResult(result)
@@ -46,7 +46,7 @@ function checkOperation (operation) {
   }
 }
 
-function equals () {
+function getResult () {
   var result = 0
   if (calculator.operation === '+') result = calculator.numbers[0] + calculator.numbers[1]
   if (calculator.operation === '-') result = calculator.numbers[0] - calculator.numbers[1]
@@ -62,6 +62,11 @@ function updateTopScreen () {
 
 function updateResult (input) {
   screenBottom.innerHTML = input
+}
+
+function clearScreen () {
+  screenTop.innerHTML = ''
+  screenBottom.innerHTML = '0'
 }
 
 const screenTop = document.querySelector('.screen .top')
