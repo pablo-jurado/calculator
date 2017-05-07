@@ -1,0 +1,60 @@
+body {
+  background: linear-gradient(135deg, rgb(242,72,143) 0%,rgb(255,123,13) 100%);
+  height: 100vh;
+}
+
+button {
+
+}
+
+.calculator {
+  width: 250px;
+  margin: 25vh auto;
+  background: rgba(255, 255, 255, 0.4);
+  padding: 30px 20px;
+  border-radius: 15px;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.4);
+}
+
+.screen-wrapper {
+  display: flex;
+}
+
+.column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.expand {
+  height: 100%;
+}
+.screen {
+  background: rgba(255, 255, 255, 0.5);
+  border: solid 1px lightgrey;
+  height: 100px;
+  flex: 3;
+}
+.wrapper-btns {
+  display: flex;
+  flex-flow: column;
+}
+
+.row {
+  height: 50px;
+  width: 100%;
+  display: flex;
+  align-items: stretch;
+}
+
+.row button {
+  flex: 1;
+}
+
+.row .flex2 {
+  flex: 2.3;
+}
+
+.row .flex3 {
+  flex: 3.7;
+}
