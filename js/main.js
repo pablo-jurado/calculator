@@ -35,7 +35,7 @@ function checkOperation (operation) {
   } else if (operation === 'equals') {
     updateTopScreen()
     let result = getResult()
-    screenTop.innerHTML += calculator.numbers[1]
+    if (calculator.numbers[1]) screenTop.innerHTML += calculator.numbers[1]
     calculator.clear()
     updateResult(result)
     calculator.num = result
@@ -48,10 +48,12 @@ function checkOperation (operation) {
 
 function getResult () {
   var result = 0
-  if (calculator.operation === '+') result = calculator.numbers[0] + calculator.numbers[1]
-  if (calculator.operation === '-') result = calculator.numbers[0] - calculator.numbers[1]
-  if (calculator.operation === 'x') result = calculator.numbers[0] * calculator.numbers[1]
-  if (calculator.operation === '/') result = calculator.numbers[0] / calculator.numbers[1]
+  if (calculator.numbers.length === 2) {
+    if (calculator.operation === '+') result = calculator.numbers[0] + calculator.numbers[1]
+    if (calculator.operation === '-') result = calculator.numbers[0] - calculator.numbers[1]
+    if (calculator.operation === 'x') result = calculator.numbers[0] * calculator.numbers[1]
+    if (calculator.operation === '/') result = calculator.numbers[0] / calculator.numbers[1]
+  }
   return result
 }
 
