@@ -2,6 +2,10 @@ const calculator = {
   num: '',
   numbers: [],
   operation: '',
+  add () { return this.numbers[0] + this.numbers[1] },
+  min () { return this.numbers[0] - this.numbers[1] },
+  mul () { return this.numbers[0] * this.numbers[1] },
+  div () { return this.numbers[0] / this.numbers[1] },
   saveNum () {
     this.numbers.push(parseFloat(this.num, 10))
     this.num = ''
@@ -49,10 +53,10 @@ function checkOperation (operation) {
 function getResult () {
   var result = 0
   if (calculator.numbers.length === 2) {
-    if (calculator.operation === '+') result = calculator.numbers[0] + calculator.numbers[1]
-    if (calculator.operation === '-') result = calculator.numbers[0] - calculator.numbers[1]
-    if (calculator.operation === 'x') result = calculator.numbers[0] * calculator.numbers[1]
-    if (calculator.operation === '/') result = calculator.numbers[0] / calculator.numbers[1]
+    if (calculator.operation === '+') result = calculator.add()
+    if (calculator.operation === '-') result = calculator.min()
+    if (calculator.operation === 'x') result = calculator.mul()
+    if (calculator.operation === '/') result = calculator.div()
   }
   return result
 }
