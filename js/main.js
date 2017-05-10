@@ -1,21 +1,6 @@
-const calculator = {
-  num: '',
-  numbers: [],
-  operation: '',
-  add () { return this.numbers[0] + this.numbers[1] },
-  min () { return this.numbers[0] - this.numbers[1] },
-  mul () { return this.numbers[0] * this.numbers[1] },
-  div () { return this.numbers[0] / this.numbers[1] },
-  saveNum () {
-    this.numbers.push(parseFloat(this.num, 10))
-    this.num = ''
-  },
-  clear () {
-    this.num = ''
-    this.operation = ''
-    this.numbers = []
-  }
-}
+
+let calcArr = []
+let mainNumber = ''
 
 // check if click number or operation
 document.querySelector('.wrapper-btns').addEventListener('click', (e) => {
@@ -23,56 +8,51 @@ document.querySelector('.wrapper-btns').addEventListener('click', (e) => {
   let btnOperation = e.target.id
   if (btnNum !== undefined) {
     if (btnNum) {
-      calculator.num += btnNum
-      screenBottom.innerHTML = calculator.num
+      mainNumber += btnNum
+      updateBottomScreen(mainNumber)
     } else {
-      calculator.saveNum()
-      checkOperation(btnOperation)
+      updateOperation(mainNumber, btnOperation)
     }
   }
 })
 
-function checkOperation (operation) {
+function updateOperation (num, operation) {
   if (operation === 'clear') {
-    calculator.clear()
     clearScreen()
+    clearCalcArray()
+    clearCalcNum()
   } else if (operation === 'equals') {
-    updateTopScreen()
-    let result = getResult()
-    if (calculator.numbers[1]) screenTop.innerHTML += calculator.numbers[1]
-    calculator.clear()
-    updateResult(result)
-    calculator.num = result
+    calcArr.push(num)
+    updateTopScreen(num)
+    updateBottomScreen('loading...')
   } else {
-    updateTopScreen()
-    calculator.operation = operation
-    screenTop.innerHTML += calculator.operation
+    calcArr.push(num, operation)
+    updateTopScreen(num, operation)
+    clearCalcNum()
   }
+  console.info(`${operation} clicked`, calcArr)
 }
 
-function getResult () {
-  var result = 0
-  if (calculator.numbers.length === 2) {
-    if (calculator.operation === '+') result = calculator.add()
-    if (calculator.operation === '-') result = calculator.min()
-    if (calculator.operation === 'x') result = calculator.mul()
-    if (calculator.operation === '/') result = calculator.div()
-  }
-  return result
-}
-
-function updateTopScreen () {
-  screenTop.innerHTML = calculator.numbers[0] + calculator.operation
+function updateTopScreen (num, operation = '') {
+  screenTop.innerHTML += ` ${num} ${operation}`
   screenBottom.innerHTML = ''
 }
 
-function updateResult (input) {
+function updateBottomScreen (input) {
   screenBottom.innerHTML = input
 }
 
 function clearScreen () {
   screenTop.innerHTML = ''
   screenBottom.innerHTML = '0'
+}
+
+function clearCalcArray () {
+  calcArr = []
+}
+
+function clearCalcNum () {
+  mainNumber = ''
 }
 
 const screenTop = document.querySelector('.screen .top')
