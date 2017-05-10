@@ -3,11 +3,10 @@ let calcArr = []
 let mainNumber = ''
 
 function updateArrToScreen () {
-  let str = calcArr.join(' ')
-  screenTop.innerHTML = str
+  screenTop.innerHTML = calcArr.join(' ')
 }
 
-function updateBottomScreen (input) {
+function updateBottomScreen (input = 0) {
   screenBottom.innerHTML = input
 }
 
@@ -30,37 +29,52 @@ function updateOperation (num, operation) {
     clearCalcArray()
     clearCalcNum()
   } else if (operation === 'equals') {
-    calcArr.push(parseFloat(num, 10))
-    updateArrToScreen()
-    let result = getResult(calcArr)
-    updateBottomScreen(result)
-    clearCalcArray()
-    mainNumber = '0.9'
+    if (calcArr.length !== 0) {
+      calcArr.push(parseFloat(num, 10))
+      updateArrToScreen()
+      console.log(calcArr)
+      let result = getResult(calcArr)
+      updateBottomScreen(result)
+      clearCalcArray()
+      mainNumber = result
+    }
   } else {
+    // TODO: disabled btn after operations is clicked
     calcArr.push(parseFloat(num, 10), operation)
     updateArrToScreen()
     clearCalcNum()
   }
-  // console.info(`${operation} clicked`)
 }
 
 // check if click number or operation
 document.querySelector('.wrapper-btns').addEventListener('click', (e) => {
   let btnNum = e.target.value
   let btnOperation = e.target.id
-  if (btnNum !== undefined && btnNum) {
-    mainNumber += btnNum
-    updateBottomScreen(mainNumber)
-  } else {
-    updateOperation(mainNumber, btnOperation)
+  if (btnNum !== undefined) {
+    if (btnNum) {
+      mainNumber += btnNum
+      updateBottomScreen(mainNumber)
+    } else {
+      updateOperation(mainNumber, btnOperation)
+    }
   }
 })
 
 const screenTop = document.querySelector('.screen .top')
 const screenBottom = document.querySelector('.screen .bottom')
 
-// TODO: this should be a reduce function that returns the result
+// checks for operations reduce the calc array and returns the result
 function getResult (arr) {
-  console.log(arr)
-  return 'result'
+  let result = arr.reduce((acc, currentValue, index, arr) => {
+    if (typeof currentValue === 'string') {
+      if (currentValue === '+') acc += arr[index + 1]
+      if (currentValue === '-') acc -= arr[index + 1]
+      if (currentValue === 'x') acc *= arr[index + 1]
+      if (currentValue === '/') acc /= arr[index + 1]
+    }
+    return acc
+  }, arr[0])
+  return result
 }
+
+updateBottomScreen()
