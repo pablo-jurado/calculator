@@ -23,6 +23,14 @@ function clearCalcNum () {
   mainNumber = ''
 }
 
+function toggleOperationBtn (arr, bool) {
+  arr.forEach((btn) => {
+    btn.disabled = bool
+  })
+}
+
+let oppsButton = document.querySelectorAll('.operation')
+
 function updateOperation (num, operation) {
   if (operation === 'clear') {
     clearScreen()
@@ -39,7 +47,7 @@ function updateOperation (num, operation) {
       mainNumber = result
     }
   } else {
-    // TODO: disabled btn after operations is clicked
+    toggleOperationBtn(oppsButton, true)
     calcArr.push(parseFloat(num, 10), operation)
     updateArrToScreen()
     clearCalcNum()
@@ -52,6 +60,7 @@ document.querySelector('.wrapper-btns').addEventListener('click', (e) => {
   let btnOperation = e.target.id
   if (btnNum !== undefined) {
     if (btnNum) {
+      toggleOperationBtn(oppsButton, false)
       mainNumber += btnNum
       updateBottomScreen(mainNumber)
     } else {
@@ -78,3 +87,4 @@ function getResult (arr) {
 }
 
 updateBottomScreen()
+toggleOperationBtn(oppsButton, true)
